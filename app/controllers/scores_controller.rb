@@ -6,6 +6,6 @@ class ScoresController < ApplicationController
       [-33.867070000000005, 151.20674000000002],
       [-33.86703, 151.20625]
     ]
-    @results = gmaps.snap_to_roads(path, interpolate: true)
+    @results = gmap.snap_to_roads(path, interpolate: true)
   end
 end
