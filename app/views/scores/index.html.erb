@@ -1,2 +1,46 @@
 <h1>Scores#index</h1>
-<p><%= @results %></p>
+<p><%= @results%></p>
+<div id="map"></div>
+
+<script>
+function initialize() {
+    var mapOptions = {
+        zoom: 18,
+        center: {lat: -33.86703, lng: 151.20714,}
+    };
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+}
+
+function runSnapToRoad() {
+    jsons = gon.json
+    processSnapToRoadResponse(jsons);
+    drawSnappedPolyline();
+}
+
+// Store snapped polyline returned by the snap-to-road service.
+function processSnapToRoadResponse(jsons) {
+    snappedCoordinates = [];
+    console.log(14)
+    for (var i = 0; i < jsons.length; i++) {
+        var latlng = new google.maps.LatLng(
+            jsons[i].location.latitude,
+            jsons[i].location.longitude);
+
+        snappedCoordinates.push(latlng);
+    }
+}
+
+// Draws the snapped polyline (after processing snap-to-road response).
+function drawSnappedPolyline() {
+    var snappedPolyline = new google.maps.Polyline({
+        path: snappedCoordinates,
+        strokeColor: 'red',
+        strokeWeight: 10,
+        strokeOpacity: 0.5,
+    });
+    snappedPolyline.setMap(map);
+}
+
+$(window).load(initialize);
+$(window).load(runSnapToRoad);
+</script>
