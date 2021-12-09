@@ -1,9 +1,15 @@
 class MapsController < ApplicationController
   protect_from_forgery
   def index
+    maps = Map.all
+    paths = []
+    maps.each do |t|
+      path = GoogleMapsService::Polyline.decode(t.encorded_path)
+      paths.push(path)
+    end
+    gon.path = paths
   end
-  def new
-  end
+  
   def create
     json =  params[:data]
     json_data = JSON.parse(json)
