@@ -1,0 +1,31 @@
+<div id="map"></div>
+
+<script>
+let poly;
+let map;
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 7,
+    center: { lat: 41.879, lng: -87.624 }, // Center the map on Chicago, USA.
+  });
+
+  paths = gon.path
+    for (var i = 0; i < paths.length; i++) {
+        var path = paths[i]
+        drawPolyline(path);
+    }
+}
+
+
+function drawPolyline(path) {
+  poly = new google.maps.Polyline({
+    path: path,
+    strokeColor: "#000000",
+    strokeOpacity: 0.5,
+    strokeWeight: 10,
+  });
+  poly.setMap(map);
+}
+$(window).load(initMap);
+</script>
